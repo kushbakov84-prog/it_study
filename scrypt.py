@@ -1,11 +1,20 @@
-name = "Beksutan"
-print(f"Привет, {name}! Твой первый скрипт на Python работает.")
-server_name = "ai-workers-01"
-ram_gb = 16
-is_active = True
-report_text = f"Отчет по серверу {server_name}:\nПамять: {ram_gb} GB\nАктивен: {is_active}\n"
-with open("server_report.txt", "w") as file:
-    file.write(report_text)
-print("Репорт выполнился, проверь новый файл!")
+# Список наших серверов
+servers = ["ai-worker-01", "ai-worker-02", "storage-server"]
+
+# Перебираем серверы
+for server in servers:
+    if server.startswith("ai"):
+        # Задаем имя файла динамически для каждого ИИ-сервера
+        filename = f"report_{server}.txt"
+
+        # Создаем текст лога
+        log_message = f"Статус: ИИ-нода {server} активна.\nМониторинг запущен успешно.\n"
+
+        # Записываем лог в индивидуальный файл (8 пробелов отступа!)
+        with open(filename, "w") as file:
+            file.write(log_message)
+
+        print(f"Создан отчет для сервера: {filename}")
+
 
 
