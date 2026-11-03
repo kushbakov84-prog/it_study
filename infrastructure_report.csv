@@ -1,0 +1,5 @@
+server_name,cpu_load_percent,ram_usage_gb,status
+ai-worker-01,88.5,14.2,CRITICAL (High Load)
+ai-worker-02,92.1,15.8,CRITICAL (High Load)
+storage-server,15.4,4.1,OK (Normal)
+backup-node,8.2,2.0,OK (Normal)
