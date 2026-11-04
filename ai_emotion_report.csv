@@ -1,0 +1,5 @@
+Text,Emotion,Confidence
+"The server is running incredibly fast, I love it!",joy,0.99
+Database connection failed again. This is terrible.,sadness,1.0
+I am worried about the recent security update.,fear,0.98
+Everything is working fine and stable.,joy,1.0

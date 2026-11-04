@@ -1,25 +1,35 @@
 import pandas as pd
-import numpy as np
+from transformers import pipeline
 
-print("Запуск ИИ-модуля аналитики данных...")
+print("Загрузка ИИ-модели анализа текста...")
+# Инициализируем готовую мини-нейросеть для анализа тональности текста
+classifier = pipeline("sentiment-analysis", model="bhadresh-savani/distilbert-base-uncased-emotion")
 
-# 1. Создаем структуру данных с метриками серверов
-data = {
-    "server_name": ["ai-worker-01", "ai-worker-02", "storage-server", "backup-node"],
-    "cpu_load_percent": [88.5, 92.1, 15.4, 8.2],
-    "ram_usage_gb": [14.2, 15.8, 4.1, 2.0]
-}
+# Наш набор логов и жалоб от пользователей
+logs = [
+    "The server is running incredibly fast, I love it!",
+    "Database connection failed again. This is terrible.",
+    "I am worried about the recent security update.",
+    "Everything is working fine and stable."
+]
 
-# 2. С помощью Pandas превращаем обычные данные в мощную таблицу (DataFrame)
-df = pd.DataFrame(data)
+print("ИИ анализирует текст...")
+results = classifier(logs)
 
-# 3. Используем NumPy, чтобы автоматически разметить критический статус нагрузки (более 80%)
-df["status"] = np.where(df["cpu_load_percent"] > 80.0, "CRITICAL (High Load)", "OK (Normal)")
+# Собираем результаты в красивую таблицу с помощью Pandas
+analyzed_data = []
+for text, result in zip(logs, results):
+    analyzed_data.append({
+        "Text": text,
+        "Emotion": result["label"],
+        "Confidence": round(result["score"], 2)
+    })
 
-# 4. Выводим таблицу в терминал для проверки
-print("\n--- Результаты анализа инфраструктуры ---")
+df = pd.DataFrame(analyzed_data)
+
+print("\n--- Результаты анализа эмоций ИИ ---")
 print(df)
 
-# 5. Сохраняем таблицу в профессиональный файл отчета CSV
-df.to_csv("infrastructure_report.csv", index=False)
-print("\nАналитический отчет успешно сохранен в infrastructure_report.csv!")
+# Сохраняем в CSV
+df.to_csv("ai_emotion_report.csv", index=False)
+print("\nОтчет сохранен в ai_emotion_report.csv!")
